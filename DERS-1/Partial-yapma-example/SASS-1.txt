@@ -1,0 +1,723 @@
+
+----------------------- Sass Introduction ------------------------
+
+1- Sass, Sözdizimsel Olarak Müthiş Stil Sayfası anlamına gelir
+
+2- Sass, CSS'nin bir uzantısıdır
+
+3- Sass bir CSS ön işlemcisidir
+
+4- Sass, CSS'nin tüm sürümleriyle tamamen uyumludur
+
+5- Sass, CSS tekrarını azaltır ve bu nedenle zamandan tasarruf sağlar
+
+6- Sass, Hampton Catlin tarafından tasarlandı ve 2006 yılında Natalie Weizenbaum tarafından geliştirildi.
+
+7- Sass'ı indirmek ve kullanmak ücretsizdir
+
+
+---------------------- SASS NİÇİN KULLANILIR ---------------------
+
+1- Stil sayfaları büyüyor, daha karmaşık ve bakımı zorlaşıyor. Burası bir CSS ön işlemcisinin yardımcı olabileceği yerdir. 
+
+2-Sass, değişkenler, iç içe kurallar, karışımlar(MİXİN), içe aktarma, devralma, yerleşik işlevler ve diğer şeyler gibi CSS'de bulunmayan özellikleri kullanmanıza olanak tanır.
+
+
+--------- Sass'ın Neden Yararlı Olduğuna Basit Bir Örnek ---------
+
+1- Diyelim ki üç ana rengi olan bir web sitemiz var:
+
+2- Peki, bu HEX değerlerini kaç kez yazmanız gerekiyor? Bir çok kez. Peki ya aynı renklerin varyasyonları?
+
+3- Yukarıdaki değerleri defalarca yazmak yerine Sass kullanarak şunu yazabilirsiniz:
+
+Sass Example
+/* define variables for the primary colors */
+$primary_1: #a2b9bc;
+$primary_2: #b2ad7f;
+$primary_3: #878f99;
+
+/* use the variables */
+.main-header {
+  background-color: $primary_1;
+}
+
+.menu-left {
+  background-color: $primary_2;
+}
+
+.menu-right {
+  background-color: $primary_3;
+}
+
+4- Bu nedenle, Sass kullanırken ve ana renk değiştiğinde, onu yalnızca bir yerde değiştirmeniz gerekir.
+
+
+------- How Does Sass Work? --  SASS NASIL ÇALIŞIR ---------------
+
+1- Bir tarayıcı Sass kodunu anlamıyor. Bu nedenle, Sass kodunu standart CSS'ye dönüştürmek için bir Sass ön işlemcisine ihtiyacınız olacak.
+
+2- Bu işleme aktarma denir. Bu nedenle, bir aktarıcıya (bir tür program) bazı Sass kodları vermeniz ve ardından bazı CSS kodlarını geri almanız gerekir.
+
+3- İpucu: Aktarma(TRANSPILING), bir dilde yazılmış bir kaynak kodu alıp başka bir dile dönüştürmek/çevirmek için kullanılan bir terimdir.
+
+
+-------------- Sass File Type -- SASS DOSYA TİPİ -----------------
+
+1- Sass dosyaları ".scss" dosya uzantısına sahiptir.
+
+2-  Sass, standart CSS yorumlarını /* yorumunu */ destekler ve ayrıca satır içi yorumları destekler // yorumu:
+
+SASS EXAMPLE:
+/* define primary colors */
+$primary_1: #a2b9bc;
+$primary_2: #b2ad7f;
+
+/* use the variables */
+.main-header {
+  background-color: $primary_1; // here you can put an inline comment
+}
+
+
+------------------------- Sass Variables -------------------------
+
+1- Değişkenler, daha sonra yeniden kullanabileceğiniz bilgileri depolamanın bir yoludur. 
+
+2- Sass ile bilgileri aşağıdaki gibi değişkenlerde saklayabilirsiniz:
+
+       🎆strings
+       🎆numbers
+       🎆colors
+       🎆booleans
+       🎆lists
+       🎆nulls
+
+3- ÖNEMLİ Sass, değişkenleri bildirmek için $ sembolünü ve ardından bir isim kullanır:
+
+Sass Variable Syntax:
+
+$variablename: value;
+
+3- Aşağıdaki örnek, myFont, myColor, myFontSize ve myWidth adlı 4 değişkeni bildirir. Değişkenler tanımlandıktan sonra değişkenleri istediğiniz yerde kullanabilirsiniz:
+
+SCSS Syntax:
+
+$myFont: Helvetica, sans-serif;
+$myColor: red;
+$myFontSize: 18px;
+$myWidth: 680px;
+
+body {
+  font-family: $myFont;
+  font-size: $myFontSize;
+  color: $myColor;
+}
+
+#container {
+  width: $myWidth;
+}
+
+--- Böylece, Sass dosyası aktarıldığında, değişkenleri (myFont, myColor, vb.) alır ve CSS'ye yerleştirilen değişken değerleriyle normal CSS'yi şu şekilde çıkarır:
+
+CSS Output:
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  color: red;
+}
+
+#container {
+  width: 680px;
+}
+
+
+------------- Sass Değişken Kapsamı -- SASS VARIABLE SCOPE -------
+
+1-  Sass değişkenleri yalnızca tanımlandıkları NESTİNG düzeyinde kullanılabilir. Aşağıdaki örneğe bakın:
+
+SCSS Syntax:
+
+$myColor: red;
+
+h1 {
+  $myColor: green;
+  color: $myColor;      Yeşil olur h1  block scope olduğu için.
+}
+
+p {
+  color: $myColor;      Kırmızı olur p1 çünkü global scope
+}
+
+AÇIKLAMA: <p> etiketi içindeki metnin rengi kırmızı mı yoksa yeşil mi olacak? Kırmızı olacak! Diğer tanım, $myColor: green; <h1> kuralının içindedir ve yalnızca orada kullanılabilir!
+
+CSS Output:
+
+h1 {
+  color: green;
+}
+
+p {
+  color: red;
+}
+
+*** Tamam, değişken kapsamı için varsayılan davranış budur.
+
+
+--------------------- Sass !global'i kullanma --------------------
+
+1- Değişken kapsam için varsayılan davranış, !global anahtarı kullanılarak geçersiz kılınabilir. 
+
+2- !global, bir değişkenin global olduğunu, yani her düzeyde erişilebilir olduğunu belirtir. 
+
+3- Aşağıdaki örneğe bakın (yukarıdakiyle aynı; ancak !global eklenmiş):
+
+SCSS Syntax:
+
+$myColor: red;
+
+h1 {
+  $myColor: green !global;
+  color: $myColor;
+}
+
+p {
+  color: $myColor;
+}
+
+*** Şimdi bir <p> etiketinin içindeki metnin rengi yeşil olacak!
+
+CSS Output:
+
+h1 {
+  color: green;
+}
+
+p {
+  color: green;
+}
+
+NOT - İPUCU - ÖNEMLİ :İpucu: Global değişkenler, herhangi bir kuralın dışında tanımlanmalıdır. Tüm global değişkenleri "_globals.scss" adlı kendi dosyasında tanımlamak ve dosyayı @include anahtar sözcüğüyle eklemek akıllıca olabilir.
+
+
+-------------- Sass Nested Rules and Properties ------------------
+
+----------------------- Sass Nested Rules ------------------------
+
+1- Sass, CSS seçicilerini HTML ile aynı şekilde yerleştirmenizi sağlar. Bir sitenin NAVİGASYONU  için bazı Sass kodu örneklerine bakın:
+
+Example
+SCSS Syntax:
+
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    display: inline-block;
+  }
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+
+AÇIKLAMA: Sass'ta ul, li ve a seçicilerinin gezinme seçicinin içinde iç içe geçtiğine dikkat edin. 
+
+*** CSS'deyken kurallar birer birer tanımlanır (iç içe değil)
+
+CSS Syntax:
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block;
+}
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+AÇIKLAMA: Özellikleri Sass'a yerleştirebildiğiniz için, standart CSS'den daha temiz ve okunması daha kolaydır.
+
+
+----------------------- Sass Nested Properties -------------------
+
+1- Birçok CSS özelliği, font ailesi, font boyutu ve font ağırlığı veya metin hizalama, metin dönüştürme ve metin taşması gibi aynı ön eke sahiptir. 
+
+2- Sass ile bunları iç içe geçmiş özellikler olarak yazabilirsiniz:
+
+EXAMPLE:
+SCSS Syntax:
+
+font: {
+  family: Helvetica, sans-serif;
+  size: 18px;
+  weight: bold;
+}
+
+text: {
+  align: center;
+  transform: lowercase;
+  overflow: hidden;
+}
+
+*** Sass aktarıcı yukarıdakileri normal CSS'ye dönüştürecektir:
+
+CSS Output:
+
+font-family: Helvetica, sans-serif;
+font-size: 18px;
+font-weight: bold;
+
+text-align: center;
+text-transform: lowercase;
+text-overflow: hidden;
+
+
+------------------ Sass @import and Partials --------------------
+
+1- Sass, CSS kodunu DRY tutar (Kendinizi Tekrar Etmeyin). DRY kodu yazmanın bir yolu, ilgili kodu ayrı dosyalarda tutmaktır.
+
+2- Diğer Sass dosyalarına dahil etmek için CSS SNİPPETlarıyla küçük dosyalar oluşturabilirsiniz. Bu tür dosyalara örnek olarak şunlar verilebilir: sıfırlama dosyası, değişkenler, renkler, yazı tipleri, yazı tipi boyutları vb.
+
+
+----------------------- Sass Importing Files ---------------------
+
+1- Tıpkı CSS gibi Sass da @import yönergesini destekler. 
+
+2- @import yönergesi, bir dosyanın içeriğini diğerine eklemenize izin verir. 
+
+3- CSS @import yönergesinin performans sorunları nedeniyle büyük bir dezavantajı vardır; her aradığınızda fazladan bir HTTP isteği oluşturur. Ancak, Sass @import yönergesi dosyayı CSS'ye dahil eder; bu nedenle çalışma zamanında fazladan HTTP çağrısı gerekmez!
+
+Sass Import Syntax:
+
+@import filename;
+
+İPUCU - NOT: Bir dosya uzantısı belirtmeniz gerekmez, Sass otomatik olarak bir .sass veya .scss dosyası kastettiğinizi varsayar. 
+
+--- Ayrıca CSS dosyalarını da içe aktarabilirsiniz. @import yönergesi dosyayı içe aktarır ve içe aktarılan dosyada tanımlanan tüm değişkenler veya karışımlar(MİXİN) daha sonra ana dosyada kullanılabilir.
+
+Example
+@import "variables";
+@import "colors";
+@import "reset";
+
+4- Bir örneğe bakalım: Diyelim ki "reset.scss" adında bir sıfırlama dosyamız var, şöyle görünüyor:
+
+EXAMPLE:
+SCSS Syntax (reset.scss):
+
+html,
+body,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+*** ve şimdi "reset.scss" dosyasını "standart.scss" adlı başka bir dosyaya aktarmak istiyoruz.
+
+*** Bunu şu şekilde yapıyoruz: Bir dosyanın başına @import yönergesini eklemek normaldir; bu şekilde içeriği küresel bir kapsama sahip olacaktır:
+
+SCSS Syntax (standard.scss):
+
+@import "reset";
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  color: red;
+}
+
+*** Dolayısıyla, "standart.css" dosyası aktarıldığında, CSS şöyle görünecektir:
+
+CSS output:
+
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  color: red;
+}
+
+
+------------------------ Sass Partials ---------------------------
+
+1- Varsayılan olarak, Sass tüm .scss dosyalarını doğrudan aktarır. Ancak, bir dosyayı içe aktarmak istediğinizde, dosyanın doğrudan aktarılmasına ihtiyacınız yoktur.
+
+2- Sass'ın bunun için bir mekanizması var: Dosya adını bir alt çizgi(UNDERSCORE) ile başlatırsanız, Sass onu aktarmaz. Bu şekilde adlandırılan dosyalara Sass'ta kısmi dosyalar(PARTIAL) denir
+
+3- Bu nedenle, kısmi bir Sass dosyası, önünden gelen bir alt çizgi ile adlandırılır:
+
+Sass Partial Syntax:
+
+ _filename;
+
+4- Aşağıdaki örnek, "_colors.scss" adlı kısmi bir Sass dosyasını göstermektedir. (Bu dosya doğrudan "colors.css" dosyasına aktarılmayacaktır):
+
+Example
+"_colors.scss":
+
+$myPink: #EE82EE;
+$myBlue: #4169E1;
+$myGreen: #8FBC8F;
+
+*** Şimdi, kısmi dosyayı içe aktarırsanız, alt çizgiyi atlayın. Sass, "_colors.scss" dosyasını içe aktarması gerektiğini anlar:
+
+Example
+@import "colors";
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  color: $myBlue;
+}
+
+
+-------------------- Sass @mixin and @include --------------------
+
+-------------------------- SASS MIXINS ---------------------------
+
+1- @mixin yönergesi, web sitesinde yeniden kullanılacak CSS kodu oluşturmanıza olanak tanır.
+
+2-  @include yönergesi, mixin'i kullanmanıza (include) izin vermek için oluşturulur.
+
+
+------- Defining a Mixin (MİXİN TANIMLAMA)
+
+1- @mixin yönergesi ile bir mixin tanımlanır.
+
+Sass @mixin Syntax:
+
+@mixin name {
+  property: value;
+  property: value;
+  ...
+}
+
+2- Aşağıdaki örnek, "important-text" adlı bir karışım oluşturur:
+
+SCSS Syntax:
+
+@mixin important-text {
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid blue;
+}
+
+İPUCU - NOT: Sass'ta kısa çizgi(TIRE) ve alt çizgi(UNDERSCORE) hakkında bir ipucu: Kısa çizgi ve alt çizgi aynı kabul edilir. 
+
+*** Bu, @mixin önemli-metin { } ve @mixin önemli_metin { } öğelerinin aynı karışım olarak kabul edildiği anlamına gelir!
+
+
+------------- Using a Mixin
+
+1- @include yönergesi bir mixin eklemek için kullanılır.
+
+Sass @include mixin Syntax:
+
+selector {
+  @include mixin-name;
+}
+
+2- Bu nedenle, yukarıda oluşturulan İMPORTANT-TEXT karışımını dahil etmek için:
+
+SCSS Syntax:
+
+.danger {
+  @include important-text;
+  background-color: green;
+}
+
+3- Sass aktarıcı yukarıdakileri normal CSS'ye dönüştürecektir:
+
+CSS output:
+
+.danger {
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid blue;
+  background-color: green;
+}
+
+
+4- Bir karışım(MİXİN) ayrıca diğer karışımları(MİXİNLERİ) da içerebilir:
+
+SCSS Syntax:
+
+@mixin special-text {
+  @include important-text;
+  @include link;
+  @include special-border;
+}
+
+
+--- Passing Variables to a Mixin - Değişkenleri Mixin'e Geçmek ---
+
+1- Mixins argümanları kabul eder. Bu şekilde değişkenleri bir karışıma iletebilirsiniz. 
+
+2- Argümanlarla bir karışımı nasıl tanımlayacağınız aşağıda açıklanmıştır:
+
+SCSS SYNTAX:
+
+/* Define mixin with two arguments */
+@mixin bordered($color, $width) {
+  border: $width solid $color;
+}
+
+.myArticle {
+  @include bordered(blue, 1px);  // Call mixin with two values
+}
+
+.myNotes {
+  @include bordered(red, 2px); // Call mixin with two values
+}
+
+*** Argümanların değişkenler olarak ayarlandığına ve ardından border özelliğinin değerleri (renk ve genişlik) olarak kullanıldığına dikkat edin.
+
+*** Derlemeden sonra CSS şöyle görünecektir:
+
+CSS Output:
+
+.myArticle {
+  border: 1px solid blue;
+}
+
+.myNotes {
+  border: 2px solid red;
+}
+
+
+----Default Values for a Mixin (Mixin için varsayılan değerler)----
+
+1- Karıştırma değişkenleri için varsayılan değerler tanımlamak da mümkündür:
+
+SCSS Syntax:
+
+@mixin bordered($color: blue, $width: 1px) {
+  border: $width solid $color;
+}
+
+2-Ardından, yalnızca karışımı eklediğinizde değişen değerleri belirtmeniz gerekir:
+
+SCSS Syntax:
+
+.myTips {
+  @include bordered($color: orange);
+}
+
+
+--------------- Using a Mixin For Vendor Prefixes -----------------
+
+1- Bir karışımın başka bir iyi kullanımı, vendor prefixler içindir.
+
+2- İşte dönüşüm için bir örnek:
+
+SCSS Syntax:
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+.myBox {
+  @include transform(rotate(20deg));
+}
+
+3- Derlemeden sonra CSS şöyle görünecektir:
+
+CSS Output:
+
+.myBox {
+  -webkit-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  transform: rotate(20deg);
+}
+
+
+----------------- Sass @extend and Inheritance --------------------
+
+-------------------- Sass @extend Directive -----------------------
+
+1- extend yönergesi, bir seçiciden diğerine bir dizi CSS özelliğini paylaşmanıza izin verir. 
+
+2- @extend yönergesi, yalnızca bazı küçük ayrıntılarda farklılık gösteren hemen hemen aynı tarzda öğeleriniz varsa kullanışlıdır.
+
+3- Aşağıdaki Sass örneği önce butonlar için temel bir stil oluşturur (bu stil çoğu buton için kullanılacaktır). Ardından, "Report" butonu için bir stil ve "Gönder" butonu için bir stil oluşturuyoruz. Hem "Report" hem de "Gönder" butonu, @extend yönergesi aracılığıyla .button-basic sınıfından tüm CSS özelliklerini devralır. Ayrıca, tanımlanmış kendi renkleri vardır:
+
+SCSS Syntax:
+
+.button-basic  {
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-report  {
+  @extend .button-basic;
+  background-color: red;
+}
+
+.button-submit  {
+  @extend .button-basic;
+  background-color: green;
+  color: white;
+}
+
+*** CSS DE ŞÖYLE GÖRÜNECEKTİR.
+
+CSS Output:
+
+.button-basic, .button-report, .button-submit {
+  border: none;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-report  {
+  background-color: red;
+}
+
+.button-submit  {
+  background-color: green;
+  color: white;
+}
+
+4- @extend yönergesini kullanarak, HTML kodunuzdaki bir öğe için aşağıdaki gibi birkaç sınıf belirtmeniz gerekmez: <button class="button-basic button-report">Report this</button>. Her iki stil grubunu da elde etmek için .button-report belirtmeniz yeterlidir.
+
+5- extend yönergesi, Sass kodunuzu çok DRY(don't repeat yourself) tutmanıza yardımcı olur.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

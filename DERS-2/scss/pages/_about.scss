@@ -1,0 +1,47 @@
+//**************************************************************
+//                           ABOUT PAGE
+//**************************************************************
+
+.about-bgImg-container {
+  //   border: 5px solid red;
+  @include bgImage(50vh, $image-url);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  .about__bio-image {
+    text-align: center;
+    h2 {
+      font-size: 3rem;
+      color: $secondary-color;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 2rem;
+    }
+  }
+}
+
+.about {
+  &__container {
+    // border: 3px solid blue;
+    width: 70vw;
+    margin: 2rem auto;
+  }
+  &__job {
+    margin: 1rem;
+    // border: 3px solid red;
+    padding: 1rem;
+    background: lighten($color: $primary-color, $amount: 10%);
+    border-bottom: 3px solid $secondary-color;
+    h2,
+    h3 {
+      //   border: 3px solid red;
+      margin: 0.5rem 0;
+    }
+    h6 {
+      //   border: 3px solid red;
+
+      margin: 0.3rem, 0;
+    }
+  }
+}

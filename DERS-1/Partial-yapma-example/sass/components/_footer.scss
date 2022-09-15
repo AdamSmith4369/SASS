@@ -1,0 +1,29 @@
+$textColor: blue, purple, gray, crimson, magenta;
+
+footer {
+  .social-icons {
+    display: flex;
+    height: 10rem;
+    @for $i from 1 through 5 {
+      .social#{$i} {
+        width: 20%;
+        background-color: lighten(darkblue, $i * 10);
+        font-size: $i * 1rem;
+        color: nth($textColor, $i);
+      }
+    }
+  }
+}
+
+$dark: 5;
+footer {
+  p {
+    @if $dark==1 {
+      background-color: rgb(200, 25, 231);
+    } @else if $dark==2 {
+      background-color: lightgreen;
+    } @else {
+      background-color: gray;
+    }
+  }
+}

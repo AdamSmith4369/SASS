@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+//**************************************************************
+//  VARİABLE DECLARATION
+//**************************************************************
+
+//**************************************************************
+//                      VARİABLE USİNG
+//**************************************************************
+
+// @import "./abstracts/variables";
+
+@use "./base/reset" as v;
+@use "./abstracts/variables" as v;
+@use "./components/index" as *;
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $bgColor;
+  font-size: $fontSize;
+  color: $fontColor;
+}
+
+//**************************************************************
+//                          HEADER
+//**************************************************************
+
+//**************************************************************
+//                            BANNER
+//**************************************************************
+
+@use "./abstracts/variables";
+.banner {
+  display: flex;
+  justify-content: space-between;
+  background-color: $bannerBgColor;
+  padding: 1rem;
+  line-height: 2rem;
+  align-items: center;
+
+  aside {
+    button {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      background-color: $navBgColor;
+      margin-top: 1rem;
+      margin-right: 0.5rem;
+      &:hover {
+        background-color: pink;
+      }
+      cursor: pointer;
+    }
+  }
+
+  img {
+    width: 40%;
+    border-radius: 10px;
+    min-width: 250px;
+    max-width: 400px;
+  }
+}
+
+//************************************************************
+//                            CARDS
+//                       MİXİN KULLANIMI
+//************************************************************
+
+.cards {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  .card1 {
+    @include myBox(green, white);
+  }
+  .card2 {
+    @include myBox(brown, white);
+  }
+  .card3 {
+    @include myBox(yellow, black);
+  }
+  .card4 {
+    @include myBox(fuchsia, white);
+  }
+}
+
+//***********************************************************
+//                         ARTICLE
+//                     EXTEND KULLANIMI
+//***********************************************************
+
+//**************************************************************
+//                           FOOTER
+//                 FONKSİYON VE DÖNGÜ KULLANIMI
+//**************************************************************
+
+//***************************************************************
+//                     İF - ELSE YAPISI
+//***************************************************************
